@@ -478,13 +478,14 @@ class EmbeddingsProviderMulti:
                 padding_attention_mask_value: int = 1,
                 downweight_mode: DownweightMode = DownweightMode.MASK,
                 returned_embeddings_type: Union[List[ReturnedEmbeddingsType], ReturnedEmbeddingsType] = ReturnedEmbeddingsType.LAST_HIDDEN_STATES_NORMALIZED,
-                 requires_pooled_mask: List[bool] = []
+                 requires_pooled_mask: List[bool] = [],
+                device: Optional[str] = None
                 ):
 
         returned_embeddings_type = len(text_encoders) * [returned_embeddings_type] if not isinstance(returned_embeddings_type, (list,tuple)) else returned_embeddings_type
 
         self.embedding_providers = [
-            EmbeddingsProvider(tokenizer, text_encoder, textual_inversion_manager, dtype_for_device_getter, truncate, padding_attention_mask_value, downweight_mode, returned_embeddings_type)
+            EmbeddingsProvider(tokenizer, text_encoder, textual_inversion_manager, dtype_for_device_getter, truncate, padding_attention_mask_value, downweight_mode, returned_embeddings_type, device)
             for tokenizer, text_encoder, returned_embeddings_type in zip(tokenizers, text_encoders, returned_embeddings_type)
         ]
         self.requires_pooled_mask = requires_pooled_mask
