@@ -69,7 +69,8 @@ class Compel:
                                                             padding_attention_mask_value = padding_attention_mask_value,
                                                             downweight_mode=downweight_mode,
                                                             returned_embeddings_type=returned_embeddings_type,
-                                                            requires_pooled_mask = requires_pooled
+                                                            requires_pooled_mask = requires_pooled,
+                                                            device=device
             )
         else:
             self.conditioning_provider = EmbeddingsProvider(tokenizer=tokenizer,
